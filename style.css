@@ -1,0 +1,58 @@
+body {
+        font-family: Arial;
+        text-align: center;
+        background: #f4f6f8;
+    }
+
+    .container {
+        margin-top: 40px;
+    }
+
+    input {
+        padding: 10px;
+        width: 320px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+    }
+
+    button {
+        padding: 10px 15px;
+        margin-left: 10px;
+        background: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .bars {
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+        height: 220px;
+        margin-top: 30px;
+        gap: 6px;
+    }
+
+    .bar {
+        width: 30px;
+        background: black;
+        position: relative;
+    }
+
+    .water {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        background: skyblue;
+    }
+
+    h2 {
+        color: green;
+        margin-top: 20px;
+    }
+
+    .error {
+        color: red;
+        margin-top: 10px;
+    }

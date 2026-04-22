@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Water Tank Problem</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="app">
+
+        <h1>💧 Water Tank Problem</h1>
+        <p class="subtitle">Trapping Rain Water Visualization using JavaScript</p>
+
+        <div class="input-section">
+            <input id="inputArray" type="text"
+                   placeholder="Enter values: 0,4,0,0,0,6,0,6,4,0">
+
+            <button onclick="calculate()">Calculate</button>
+        </div>
+
+        <p class="error" id="error"></p>
+
+        <h2 id="result"></h2>
+
+        <div class="bars" id="bars"></div>
+
+    </div>
+
+<script>
+function calculate() {
+    let input = document.getElementById("inputArray").value.trim();
+
+    if (input === "") {
+        showError("Please enter input values.");
+        return;
+    }
+
+    let arr = input.split(",").map(x => Number(x.trim()));
+
+    if (arr.some(isNaN)) {
+        showError("Invalid input! Enter comma-separated numbers only.");
+        return;
+    }
+
+    document.getElementById("error").innerText = "";
+
+    let n = arr.length;
+
+    let leftMax = new Array(n);
+    let rightMax = new Array(n);
+
+    leftMax[0] = arr[0];
+    for (let i = 1; i < n; i++) {
+        leftMax[i] = Math.max(leftMax[i - 1], arr[i]);
+    }
+
+    rightMax[n - 1] = arr[n - 1];
+    for (let i = n - 2; i >= 0; i--) {
+        rightMax[i] = Math.max(rightMax[i + 1], arr[i]);
+    }
+
+    let totalWater = 0;
+    let waterArr = [];
+
+    for (let i = 0; i < n; i++) {
+        let water = Math.min(leftMax[i], rightMax[i]) - arr[i];
+        waterArr[i] = water;
+        totalWater += water;
+    }
+
+    document.getElementById("result").innerText =
+        "Total Water Stored: " + totalWater + " Units";
+
+    render(arr, waterArr);
+}
+
+function render(height, water) {
+    let bars = document.getElementById("bars");
+    bars.innerHTML = "";
+
+    for (let i = 0; i < height.length; i++) {
+
+        let bar = document.createElement("div");
+        bar.className = "bar";
+        bar.style.height = height[i] * 20 + "px";
+
+        let waterDiv = document.createElement("div");
+        waterDiv.className = "water";
+        waterDiv.style.height = water[i] * 20 + "px";
+
+        bar.appendChild(waterDiv);
+        bars.appendChild(bar);
+    }
+}
+
+function showError(msg) {
+    document.getElementById("error").innerText = msg;
+    document.getElementById("result").innerText = "";
+    document.getElementById("bars").innerHTML = "";
+}
+</script>
+
+</body>
+</html>
